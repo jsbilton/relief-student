@@ -7,7 +7,7 @@
 //  and run the following command:
 // $ NODE_ENV=production node addReliefEffort.js
 
-const dalNoSQL = require('./DAL/noSQL.js');
+const dalNoSQL = require('./DAL/no-sql.js')
 
 const createReliefEffortDataHugo = {
     "phase": "completed",
@@ -17,9 +17,7 @@ const createReliefEffortDataHugo = {
     "start": "1989-09-10",
     "end": "1989-09-25",
     "active": true
-};
-
-
+}
 
 const createReliefEffortDataHaiti2015 = {
     "_id": "relief_St_Phillips_Haiti_2015",
@@ -43,7 +41,7 @@ const createReliefEffortDataHaiti2015 = {
         "role": "Team member",
         "personID": "person_judy5555@aol.com"
     }]
-};
+}
 
 
 const createReliefEffortDataHaiti2017 = {
@@ -89,4 +87,15 @@ const createReliefEffortDataKenya2016 = {
     "active": true
 }
 
-//console.log(dalNoSQL.getDBInfo());
+var addReliefEffortCB = function (err, addReliefInCouch) {
+    if (err) {
+      return console.log(err.message)
+    }
+    return console.log("Added Relief Effort to my CouchDB", addReliefInCouch)
+}
+
+console.log(dalNoSQL.createReliefEffort(createReliefEffortDataHugo, addReliefEffortCB))
+console.log(dalNoSQL.createReliefEffort(createReliefEffortDataKenya2016, addReliefEffortCB))
+console.log(dalNoSQL.createReliefEffort(createReliefEffortDataHaiti2015, addReliefEffortCB))
+console.log(dalNoSQL.createReliefEffort(createReliefEffortDataHaiti2017, addReliefEffortCB))
+console.log(dalNoSQL.createReliefEffort(createReliefEffortDataKenya2015, addReliefEffortCB))

@@ -4,7 +4,7 @@ var person = {
     "_id": "person_stevean@duke.edu",
     "_rev": "1-8d136b50c18a97c42d23d59fbd08fa25",
     "type": "person",
-    "firstName": "Stephen",
+    "firstName": "Stephen A",
     "lastName": "Ananis",
     "phone": "843 555-1515",
     "email": "stevean@duke.edu",

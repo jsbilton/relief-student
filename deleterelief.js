@@ -6,8 +6,9 @@ var relief = {
 }
 
 var deleteReliefCB = function(err, results) {
-    if (err) 
+    if (err) {
         return console.log(err.message)
+    }
     return console.log('Deleted Person', results)
 }
 
