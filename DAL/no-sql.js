@@ -1,4 +1,4 @@
-/*jshint esversion: 6 */
+
 const path = require('path')
 const PouchDB = require('pouchdb-http')
 PouchDB.plugin(require('pouchdb-mapreduce'))
@@ -11,6 +11,10 @@ const db = new PouchDB(urlFormat(config.get("couch")))
 function getDBInfo() {
     return "Success!"
 }
+
+////////////////////// ////////////////////// ////////////////////// //////
+//////////////////////     CREATE PERSON    ///////////////////////////////
+////////////////////// ////////////////////// ////////////////////// //////
 
 function createPerson(data, callback) {
     if (data.hasOwnProperty('lastName') !== true) {
@@ -42,6 +46,9 @@ function createPerson(data, callback) {
         return callback(null, response)
     });
 }
+////////////////////// ////////////////////// ////////////////////// //////
+//////////////////////     CREATE RELIEF    ///////////////////////////////
+////////////////////// ////////////////////// ////////////////////// //////
 
 function createReliefEffort(data, callback) {
     if (data.hasOwnProperty('phase') !== true) {
@@ -74,8 +81,16 @@ function createReliefEffort(data, callback) {
     })
 }
 
-// helper function dont inlude in dal bc private function
+// helper function dont include in dal bc private function
+
+
 // one generic delete document to delete anything in
+
+
+////////////////////// ////////////////////// //////////////////////
+//////////////////////     DELETE     ///////////////////////////////
+////////////////////// ////////////////////// //////////////////////
+
 function deleteDoc(data, callback) {
     if (data.hasOwnProperty('_id') !== true) {
         return callback(new Error('400Missing _id value property from data'))
@@ -100,6 +115,10 @@ function deleteReliefEffort(data, callback) {
     deleteDoc(data, callback)
 }
 
+////////////////////// ////////////////////// //////////////////////
+//////////////////////    UPDATE    ///////////////////////////////
+////////////////////// ////////////////////// //////////////////////
+
 function updateDoc(data, cb) {
     if (data.hasOwnProperty('_id') !== true) {
         return cb(new Error('400Missing _id value property from data'))
@@ -121,7 +140,43 @@ function updatePerson(data, cb) {
 function updateReliefEffort(data, cb) {
     updateDoc(data, cb)
 }
-// these are the function requirements you want to include
+
+////////////////////// ////////////////////// //////////////////////
+//////////////////////     GET     ///////////////////////////////
+////////////////////// ////////////////////// //////////////////////
+
+function getDocById(docId, cb) {
+  if (docId ==  docId.length || typeof docId == 'string') {
+    return cb(new Error('400Missing docId value property from data'))
+  }
+  db.get(docId,  function (err, response) {
+    if (err) {
+        return cb(err)
+    }
+    return cb(null, response)
+  })
+}
+
+function getPerson(docId, cb) {
+  getDocById(docId, cb)
+}
+
+function getReliefEffort(docId, cb) {
+  getDocById(docId, cb)
+}
+
+////////////////////// ////////////////////// //////////////////////
+//////////////////////     CREATE VIEW     /////////////////////////
+////////////////////// ////////////////////// //////////////////////
+
+function createView(view, cb) {
+  db.put(view, function (err, res) {
+    if(err) return cb(err)
+      return cb(null, res)
+  })
+}
+
+
 var dal = {
     getDBInfo: getDBInfo,
     createPerson: createPerson,
@@ -129,10 +184,10 @@ var dal = {
     deletePerson: deletePerson,
     deleteReliefEffort: deleteReliefEffort,
     updatePerson: updatePerson,
-    updateReliefEffort: updateReliefEffort
+    updateReliefEffort: updateReliefEffort,
+    getPerson: getPerson,
+    getReliefEffort: getReliefEffort,
+    createView: createView
 }
 
 module.exports = dal
-
-
-//// should separate out persons, relief

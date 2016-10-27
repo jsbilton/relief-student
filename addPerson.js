@@ -74,3 +74,30 @@ const personDataSteve = {
     type: "person",
     active: true
 };
+
+const personDataJared = {
+  firstName: "Jared",
+  lastName: "Bilton",
+  phone: "843 555-3456",
+  email: "jared@usc.edu",
+  type: "person",
+  active: true
+}
+
+const personDataFelix = {
+  firstName: "Felix",
+  lastName: "Bilton",
+  phone: "844 595-3406",
+  email: "felix@unc.edu",
+  type: "person",
+  active: true
+}
+
+const personDataFritz = {
+  firstName: "Fritz",
+  lastName: "Felonis",
+  phone: "976 989-0987",
+  email: "fritz@odb.edu",
+  type: "person",
+  active: true
+}
